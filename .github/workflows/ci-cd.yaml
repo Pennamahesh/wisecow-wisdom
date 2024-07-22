@@ -25,6 +25,12 @@ jobs:
         curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
         sudo mv /tmp/eksctl /usr/local/bin
 
+    - name: Install kubectl
+      run: |
+        curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+        chmod +x ./kubectl
+        sudo mv ./kubectl /usr/local/bin/kubectl
+
     # - name: Create EKS cluster
     #   run: |
     #     eksctl create cluster \
@@ -37,12 +43,16 @@ jobs:
     #     --nodes-max 4 \
     #     --managed
 
-    # - name: Update kubeconfig
-    #   run: |
-    #     aws eks --region ap-south-1 update-kubeconfig --name wisecow-cluster
+    - name: Update kubeconfig
+      run: |
+        aws eks --region ap-south-1 update-kubeconfig --name wisecow-cluster
+
+    - name: Wait for nodes to be ready
+      run: |
+        kubectl wait --for=condition=Ready node --all --timeout=600s
 
     - name: Apply Kubernetes manifests
       run: |
-        kubectl apply -f deployment.yaml
-        kubectl apply -f service.yaml
-        kubectl apply -f ingress.yaml
+        kubectl apply -f deployment.yaml --validate=false
+        kubectl apply -f service.yaml --validate=false
+        kubectl apply -f ingress.yaml --validate=false
