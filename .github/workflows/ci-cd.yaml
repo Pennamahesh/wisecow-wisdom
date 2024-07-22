@@ -25,21 +25,21 @@ jobs:
         curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
         sudo mv /tmp/eksctl /usr/local/bin
 
-    - name: Create EKS cluster
-      run: |
-        eksctl create cluster \
-        --name wisecow-cluster \
-        --region ap-south-1 \
-        --nodegroup-name wisecow-nodes \
-        --node-type t3.medium \
-        --nodes 3 \
-        --nodes-min 1 \
-        --nodes-max 4 \
-        --managed
+    # - name: Create EKS cluster
+    #   run: |
+    #     eksctl create cluster \
+    #     --name wisecow-cluster \
+    #     --region ap-south-1 \
+    #     --nodegroup-name wisecow-nodes \
+    #     --node-type t3.medium \
+    #     --nodes 3 \
+    #     --nodes-min 1 \
+    #     --nodes-max 4 \
+    #     --managed
 
-    - name: Update kubeconfig
-      run: |
-        aws eks --region ap-south-1 update-kubeconfig --name wisecow-cluster
+    # - name: Update kubeconfig
+    #   run: |
+    #     aws eks --region ap-south-1 update-kubeconfig --name wisecow-cluster
 
     - name: Apply Kubernetes manifests
       run: |
