@@ -34,7 +34,7 @@ jobs:
 
     - name: Update kubeconfig
       run: |
-        aws eks --region us-west-2 update-kubeconfig --name wisecow-cluster
+        aws eks --region ap-south-1 update-kubeconfig --name wisecow-cluster
 
     - name: Apply Kubernetes manifests
       run: |
