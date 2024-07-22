@@ -24,7 +24,7 @@ jobs:
       run: |
         eksctl create cluster \
         --name wisecow-cluster \
-        --region us-west-2 \
+        --region ap-south-1 \
         --nodegroup-name wisecow-nodes \
         --node-type t3.medium \
         --nodes 3 \
