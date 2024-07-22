@@ -4,14 +4,9 @@ metadata:
   name: wisecow-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
-  tls:
-  - hosts:
-    - wisecow.example.com
-    secretName: wisecow-tls
   rules:
-  - host: wisecow.example.com
+  - host: 13.235.81.212.nip.io
     http:
       paths:
       - path: /

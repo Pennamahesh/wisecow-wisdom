@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: wisecow
-        image: <your-docker-image>
+        image: 150387322390.dkr.ecr.ap-south-1.amazonaws.com/cowsay:latest
         ports:
-        - containerPort: 3000
+        - containerPort: 4499
